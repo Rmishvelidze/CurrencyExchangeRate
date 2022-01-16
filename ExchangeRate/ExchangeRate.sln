@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRate.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRate.Infrastructure.Shared", "ExchangeRate.Infrastructure.Shared\ExchangeRate.Infrastructure.Shared.csproj", "{3BB3DE8E-0679-4A8C-BE2D-95B3B00439C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeRate.API", "ExchangeRate.API\ExchangeRate.API.csproj", "{C0B4A254-A7CF-4CD1-890F-DB3A9887EE3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3BB3DE8E-0679-4A8C-BE2D-95B3B00439C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BB3DE8E-0679-4A8C-BE2D-95B3B00439C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BB3DE8E-0679-4A8C-BE2D-95B3B00439C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0B4A254-A7CF-4CD1-890F-DB3A9887EE3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B4A254-A7CF-4CD1-890F-DB3A9887EE3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0B4A254-A7CF-4CD1-890F-DB3A9887EE3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0B4A254-A7CF-4CD1-890F-DB3A9887EE3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{FA73068F-029E-49BC-BD4F-DEFF2A4B3D68} = {6F1DCBE6-0877-4E7B-BD5E-174044A14701}
 		{CD5D5032-3F15-4C87-99AC-E582FB23F5C8} = {4FF71082-67BD-44EE-AC69-31BEBA520FFE}
 		{3BB3DE8E-0679-4A8C-BE2D-95B3B00439C7} = {4FF71082-67BD-44EE-AC69-31BEBA520FFE}
+		{C0B4A254-A7CF-4CD1-890F-DB3A9887EE3D} = {AB07FD0C-38FF-4ED7-B0AF-610AD93F4DC9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {51391AC6-24A5-4C63-ABDB-B040A4D23C2F}
