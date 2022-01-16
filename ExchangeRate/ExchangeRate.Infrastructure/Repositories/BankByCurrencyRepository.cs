@@ -28,13 +28,19 @@ namespace ExchangeRate.Infrastructure.Repositories
                 BankCode = e.Bank.BankCode,
                 Date = e.Date,
                 BuyRate = e.BuyRate,
-                SellRate = e.SellRate
+                SellRate = e.SellRate 
             };
 
+            var bankCurrecny = _dbContext.BankCurrencies;
             //missing sume validations
+            var bankCurrencies = bankCurrecny.Select(x => x.Currency.CurrencyName);
             var exchangeRateDatas = ExchangeRateDatas.Where
                 (x => x.Date >= stratDate && x.Date <= endDate &&
-                banks.Contains(x.Bank.BankName));
+                banks.Contains(x.Bank.BankName) && x.BuyCurrencyId == bankCurrecny.Where(c=>c.Currency.CurrencyName == firstCurrency).Select(x=>
+                x.Id).FirstOrDefault()
+                && x.SellCurrencyId == bankCurrecny.Where(c => c.Currency.CurrencyName == secondCurrency).Select(x => x.Id).FirstOrDefault());
+                //x.BuyCurrencyId == Currency.Currencies
+                //.Where(x=>x.CurrencyName==firstCurrency).Select(x=>x.Id).FirstOrDefault();
             var collection = exchangeRateDatas.Select(expression).ToListAsync();
 
 

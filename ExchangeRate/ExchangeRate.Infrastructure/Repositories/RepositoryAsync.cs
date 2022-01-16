@@ -1,4 +1,5 @@
 ﻿using ExchangeRate.Application.Interfaces.Repositories;
+using ExchangeRate.Domain.Entities.Catalog;
 using ExchangeRate.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace ExchangeRate.Infrastructure.Repositories
 {
     public class RepositoryAsync<T> : IRepositoryAsync<T> where T : class
     {
-        private readonly ApplicationDbContext _dbContext;
+        protected readonly ApplicationDbContext _dbContext;
 
         public RepositoryAsync(ApplicationDbContext dbContext)
         {
@@ -18,7 +19,8 @@ namespace ExchangeRate.Infrastructure.Repositories
 
         public IQueryable<T> Entities => _dbContext.Set<T>();
 
-        public IQueryable<T> Entity2 => _dbContext.Set<T>();
+        //public IQueryable<Currency> Entity2 => _dbContext.Set<Currency>();
+        //public IQueryable<BankCurrency> Entity3 => _dbContext.Set<BankCurrency>();
 
         public async Task<T> AddAsync(T entity)
         {
