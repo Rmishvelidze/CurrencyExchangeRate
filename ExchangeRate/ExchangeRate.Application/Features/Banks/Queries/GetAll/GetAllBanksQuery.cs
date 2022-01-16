@@ -36,7 +36,7 @@ namespace ExchangeRate.Application.Features.Banks.Queries.GetAll
                 BankName = x.BankName,  
                 Currencies = x.BankCurrencies.Select(x => x.Currency.CurrencyName).ToList()
             }).ToList();
-            return Result<List<GetAllBanksResponce>>.Success(banksResponces);
+            return await Result<List<GetAllBanksResponce>>.SuccessAsync(banksResponces);
         }
     }
 }

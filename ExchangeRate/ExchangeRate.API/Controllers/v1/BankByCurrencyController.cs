@@ -1,4 +1,5 @@
-﻿using ExchangeRate.Application.Features.BanksByCurrency.Queries.GetExcangeRate;
+﻿using ExchangeRate.Application.Features.BanksByCurrency.Queries.GetById;
+using ExchangeRate.Application.Features.BanksByCurrency.Queries.GetExcangeRate;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace ExchangeRate.API.Controllers.V1
         public async Task<IActionResult> GetExchangeRate
             (string firstCurrency, string secondCurrency, [FromQuery]IEnumerable<string> banks, DateTime startDate, DateTime endDate)
         {
-            var exchangeRate = await _mediator.Send(new GetBankByCurrencyQuery()
+            var exchangeRates = await _mediator.Send(new GetBankByCurrencyQuery()
             {
                 FristCurrency = firstCurrency,
                 SecondCurrency = secondCurrency,
@@ -22,6 +23,13 @@ namespace ExchangeRate.API.Controllers.V1
                 StartDate = startDate,
                 EndDate = endDate
             });
+            return Ok(exchangeRates);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var exchangeRate = await _mediator.Send(new GetBankByCurrencyByIdQuery() { Id = id });
             return Ok(exchangeRate);
         }
 

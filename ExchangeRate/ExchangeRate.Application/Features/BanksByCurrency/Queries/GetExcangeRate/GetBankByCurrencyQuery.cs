@@ -39,7 +39,7 @@ namespace ExchangeRate.Application.Features.BanksByCurrency.Queries.GetExcangeRa
                     BuyRate = x.BuyRate,
                     SellRate = x.SellRate
                 }).ToList();
-                return Result<List<GetBankByCurrencyResponce>>.Success(bankByCurrencyResponce);
+                return await Result<List<GetBankByCurrencyResponce>>.SuccessAsync(bankByCurrencyResponce);
 
                 //var bankByCurrency = await _bankByCurrency.GetBankByCurrenciesAsync
                 //    (query.FristCurrency,query.SecondCurrency, query.Banks, query.StartDate, query.EndDate);
