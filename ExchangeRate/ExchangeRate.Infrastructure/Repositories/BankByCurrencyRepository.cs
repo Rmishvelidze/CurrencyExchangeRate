@@ -34,11 +34,12 @@ namespace ExchangeRate.Infrastructure.Repositories
                 SellRate = e.SellRate
             };
 
-            var exchangeRateData = _repository.Entities.Where
-                (x => x.Date >= stratDate && x.Date <= endDate &&
-                x.BuyCurrency.CurrencyName == firstCurrency && x.SellCurrency.CurrencyName == secondCurrency);
-            var collection = exchangeRateData.Select(expression).ToListAsync();
-            return  await collection;
+            return await Task.Run(() => new List<BankByCurrencyDTO>());
+            //var exchangeRateData = _repository.Entities.Where
+            //    (x => x.Date >= stratDate && x.Date <= endDate &&
+            //    x.BuyCurrency.CurrencyName == firstCurrency && x.SellCurrency.CurrencyName == secondCurrency);
+            //var collection = exchangeRateData.Select(expression).ToListAsync();
+            //return  await collection;
         }
     }
 }

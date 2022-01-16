@@ -8,7 +8,7 @@ namespace ExchangeRate.Domain.Entities.Catalog
         public string? CurrencyName { get; set; }
 
         public virtual ICollection<BankCurrency> BankCurrencys { get; set; }
-        public virtual ICollection<ExchangeRateData> ExchangeRateDataBuys { get; set; }
-        public virtual ICollection<ExchangeRateData> ExchangeRateDataSells { get; set; }
+        //public virtual ICollection<ExchangeRateData> ExchangeRateDataBuys { get; set; }
+        //public virtual ICollection<ExchangeRateData> ExchangeRateDataSells { get; set; }
     }
 }
