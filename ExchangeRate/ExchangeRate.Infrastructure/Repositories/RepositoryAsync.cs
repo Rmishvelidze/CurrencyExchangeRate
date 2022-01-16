@@ -2,8 +2,10 @@
 using ExchangeRate.Domain.Entities.Catalog;
 using ExchangeRate.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ExchangeRate.Infrastructure.Repositories
@@ -19,9 +21,10 @@ namespace ExchangeRate.Infrastructure.Repositories
 
         public IQueryable<T> Entities => _dbContext.Set<T>();
 
-        //public IQueryable<Currency> Entity2 => _dbContext.Set<Currency>();
-        //public IQueryable<BankCurrency> Entity3 => _dbContext.Set<BankCurrency>();
-
+        public virtual async Task<IEnumerable<T>> ReadAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbContext.Set<T>().Where(predicate).ToListAsync();
+        }
         public async Task<T> AddAsync(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);

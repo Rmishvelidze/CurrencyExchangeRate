@@ -14,7 +14,7 @@ namespace ExchangeRate.Domain.Entities.Catalog
         public decimal? SellRate { get; set; }
 
         public virtual Bank Bank { get; set; }
-     //   public virtual Currency BuyCurrency { get; set; }
-        //public virtual Currency SellCurrency { get; set; }
+        public virtual Currency BuyCurrency { get; set; }
+        public virtual Currency SellCurrency { get; set; }
     }
 }

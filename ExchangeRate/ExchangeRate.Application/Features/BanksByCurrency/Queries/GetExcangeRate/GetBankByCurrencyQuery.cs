@@ -1,5 +1,4 @@
 ﻿using AspNetCoreHero.Results;
-using AutoMapper;
 using ExchangeRate.Application.Interfaces.Repositories;
 using MediatR;
 using System;
@@ -29,22 +28,20 @@ namespace ExchangeRate.Application.Features.BanksByCurrency.Queries.GetExcangeRa
 
             public async Task<Result<List<GetBankByCurrencyResponce>>> Handle(GetBankByCurrencyQuery query, CancellationToken cancellationToken)
             {
-                var bankByCurrency = await _bankByCurrency.GetBankByCurrenciesAsync
-                    (query.FristCurrency, query.SecondCurrency, query.Banks, query.StartDate, query.EndDate);
+                var bankByCurrency = await _bankByCurrency.ReadAsync(x => x.Date >= query.StartDate
+               && x.Date <= query.EndDate
+               && query.Banks.Contains(x.Bank.BankName)
+               && x.BuyCurrency.CurrencyName == query.FristCurrency
+               && x.SellCurrency.CurrencyName == query.SecondCurrency);
 
                 var bankByCurrencyResponce = bankByCurrency.Select(x => new GetBankByCurrencyResponce()
                 {
                     Date = x.Date,
-                    BankCode = x.BankCode,  
+                    BankCode = x.Bank?.BankCode,
                     BuyRate = x.BuyRate,
                     SellRate = x.SellRate
                 }).ToList();
                 return await Result<List<GetBankByCurrencyResponce>>.SuccessAsync(bankByCurrencyResponce);
-
-                //var bankByCurrency = await _bankByCurrency.GetBankByCurrenciesAsync
-                //    (query.FristCurrency,query.SecondCurrency, query.Banks, query.StartDate, query.EndDate);
-                //var mappedBankByCurrency = _mapper.Map< GetBankByCurrencyResponce>(bankByCurrency);
-                //return Result<GetBankByCurrencyResponce>.Success(mappedBankByCurrency);
             }
         }
     }

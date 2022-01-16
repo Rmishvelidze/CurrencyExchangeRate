@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace ExchangeRate.Application.Interfaces.Repositories
@@ -9,6 +11,8 @@ namespace ExchangeRate.Application.Interfaces.Repositories
         IQueryable<T> Entities { get; }
         Task<T> GetByIdAsync(int id);
 
+        Task<IEnumerable<T>> ReadAsync(Expression<Func<T, bool>> predicate);
+        
         Task<List<T>> GetAllAsync();
 
         Task<T> AddAsync(T entity);

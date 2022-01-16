@@ -17,11 +17,17 @@ namespace ExchangeRate.Infrastructure.Repositories
         {
    
         }
+        public override async Task<IEnumerable<ExchangeRateData>> ReadAsync(Expression<Func<ExchangeRateData, bool>> predicate)
+        {
+            return await ExchangeRateDatas.Where(predicate).ToListAsync();
+        }
 
-        public IQueryable<ExchangeRateData> ExchangeRateDatas => Entities;
+        public IQueryable<ExchangeRateData> ExchangeRateDatas => Entities.Include(x => x.Bank);
 
         public async Task<List<BankByCurrencyDTO>> GetBankByCurrenciesAsync
-            (string firstCurrency, string secondCurrency, IEnumerable<string> banks, DateTime stratDate, DateTime endDate)
+            (string firstCurrency, string secondCurrency, IEnumerable<string> banks, DateTime stratDate, DateTime endDate
+            
+            )
         {
             Expression<Func<ExchangeRateData, BankByCurrencyDTO>> expression = e => new BankByCurrencyDTO
             {
@@ -32,26 +38,18 @@ namespace ExchangeRate.Infrastructure.Repositories
             };
 
             var bankCurrecny = _dbContext.BankCurrencies;
-            //missing sume validations
+
             var bankCurrencies = bankCurrecny.Select(x => x.Currency.CurrencyName);
             var exchangeRateDatas = ExchangeRateDatas.Where
                 (x => x.Date >= stratDate && x.Date <= endDate &&
-                banks.Contains(x.Bank.BankName) && x.BuyCurrencyId == bankCurrecny.Where(c=>c.Currency.CurrencyName == firstCurrency).Select(x=>
-                x.Id).FirstOrDefault()
-                && x.SellCurrencyId == bankCurrecny.Where(c => c.Currency.CurrencyName == secondCurrency).Select(x => x.Id).FirstOrDefault());
-                //x.BuyCurrencyId == Currency.Currencies
-                //.Where(x=>x.CurrencyName==firstCurrency).Select(x=>x.Id).FirstOrDefault();
+                banks.Contains(x.Bank.BankName) && x.BuyCurrency.CurrencyName == firstCurrency
+                && x.SellCurrency.CurrencyName == secondCurrency);
+
             var collection = exchangeRateDatas.Select(expression).ToListAsync();
 
 
             return await collection;
 
-
-            //var exchangeRateData = _repository.Entities.Where
-            //    (x => x.Date >= stratDate && x.Date <= endDate &&
-            //    x.BuyCurrency.CurrencyName == firstCurrency && x.SellCurrency.CurrencyName == secondCurrency);
-            //var collection = exchangeRateData.Select(expression).ToListAsync();
-            //return  await collection;
         }
     }
 }
