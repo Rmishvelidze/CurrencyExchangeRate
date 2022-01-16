@@ -1,6 +1,7 @@
 ﻿using ExchangeRate.Application.DTOs.Banks;
 using ExchangeRate.Application.Interfaces.Repositories;
 using ExchangeRate.Domain.Entities.Catalog;
+using ExchangeRate.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,17 +11,20 @@ using System.Threading.Tasks;
 
 namespace ExchangeRate.Infrastructure.Repositories
 {
-    public class BankRepository : IBankRepository
+    public class BankRepository : RepositoryAsync<Bank>, IBankRepository
     {
-        private readonly IRepositoryAsync<Bank> _repository;
 
-        public BankRepository(IRepositoryAsync<Bank> repository)
+        public BankRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
-            _repository = repository;
         }
 
-        public IQueryable<Bank> Banks => _repository.Entities;
-        
+        public IQueryable<Bank> Banks => Entities.Include(x => x.BankCurrencies).ThenInclude(x => x.Currency);
+
+        public override async Task<List<Bank>> GetAllAsync()
+        {
+            return await Banks.ToListAsync();
+        }
+
         public async Task<List<BanksDTO>> GetBanksAsync()
         {
             Expression<Func<Bank, BanksDTO>> expression = e => new BanksDTO

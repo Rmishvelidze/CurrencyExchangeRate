@@ -1,4 +1,6 @@
 using ExchangeRate.API.Extentions;
+using ExchangeRate.Application.Extentions;
+using ExchangeRate.Infrastructure.Extentions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,8 +29,14 @@ namespace ExchangeRate.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationLayer();
             services.AddContextInfrastructure(Configuration);
+            services.AddPersistenceContexts(Configuration);
+            services.AddRepositories();
+            //services.AddSharedInfrastructure(Configuration);
+            //services.AddEssentials();
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExchangeRate.API", Version = "v1" });
@@ -50,6 +58,8 @@ namespace ExchangeRate.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

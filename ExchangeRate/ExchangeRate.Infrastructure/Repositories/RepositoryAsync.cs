@@ -30,7 +30,7 @@ namespace ExchangeRate.Infrastructure.Repositories
             return Task.CompletedTask;
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public virtual async Task<List<T>> GetAllAsync()
         {
             return await _dbContext
                 .Set<T>()

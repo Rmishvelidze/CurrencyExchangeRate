@@ -1,11 +1,11 @@
 ﻿using ExchangeRate.Application.DTOs.Banks;
+using ExchangeRate.Domain.Entities.Catalog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ExchangeRate.Application.Interfaces.Repositories
 {
-    public interface IBankRepository
+    public interface IBankRepository : IRepositoryAsync<Bank>
     {
-        Task<List<BanksDTO>> GetBanksAsync();
     }
 }

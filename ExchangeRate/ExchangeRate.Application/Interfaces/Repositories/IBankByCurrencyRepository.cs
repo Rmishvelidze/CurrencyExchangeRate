@@ -8,7 +8,7 @@ namespace ExchangeRate.Application.Interfaces.Repositories
     public interface IBankByCurrencyRepository
     {
         Task<List<BankByCurrencyDTO>> GetBankByCurrenciesAsync
-            (string firstCurrency, string second, ICollection<string> banks, DateTime stratDate, DateTime endDate);
+            (string firstCurrency, string second, IEnumerable<string> banks, DateTime stratDate, DateTime endDate);
 
 
     }

@@ -9,6 +9,7 @@ namespace ExchangeRate.Application.Mappings
         public BankProfile()
         {
             CreateMap<GetAllBanksQuery, Bank>().ReverseMap();
+            CreateMap<GetAllBanksQuery, Bank>().ReverseMap();
         }
     }
 }

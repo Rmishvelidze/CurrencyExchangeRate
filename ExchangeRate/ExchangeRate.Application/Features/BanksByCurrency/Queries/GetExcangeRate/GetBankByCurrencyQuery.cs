@@ -13,7 +13,7 @@ namespace ExchangeRate.Application.Features.BanksByCurrency.Queries.GetExcangeRa
     {
         public string FristCurrency { get; set; }
         public string SecondCurrency { get; set; }
-        public ICollection<string> Banks { get; set; }
+        public IEnumerable<string> Banks { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
