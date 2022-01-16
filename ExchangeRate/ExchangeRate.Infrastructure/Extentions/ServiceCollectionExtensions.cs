@@ -23,7 +23,7 @@ namespace ExchangeRate.Infrastructure.Extentions
 
             services.AddTransient(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
             services.AddTransient<IBankRepository, BankRepository>();
-            services.AddTransient<IBankByCurrencyRepository, BankByCurrencyRepository>();
+            services.AddTransient<IBankByCurrencyRepository, EchangeRateRepository>();
             //services.AddTransient<ILogRepository, LogRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 

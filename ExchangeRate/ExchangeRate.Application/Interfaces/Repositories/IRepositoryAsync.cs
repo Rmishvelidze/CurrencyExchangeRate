@@ -12,7 +12,7 @@ namespace ExchangeRate.Application.Interfaces.Repositories
         Task<T> GetByIdAsync(int id);
 
         Task<IEnumerable<T>> ReadAsync(Expression<Func<T, bool>> predicate);
-        
+
         Task<List<T>> GetAllAsync();
 
         Task<T> AddAsync(T entity);

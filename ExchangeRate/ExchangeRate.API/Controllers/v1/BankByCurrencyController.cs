@@ -13,7 +13,7 @@ namespace ExchangeRate.API.Controllers.V1
 
         [HttpGet("{firstCurrency}/{secondCurrency}/{startDate}/{endDate}")]
         public async Task<IActionResult> GetExchangeRate
-            (string firstCurrency, string secondCurrency, [FromQuery]IEnumerable<string> banks, DateTime startDate, DateTime endDate)
+            (string firstCurrency, string secondCurrency, [FromQuery] IEnumerable<string> banks, DateTime startDate, DateTime endDate)
         {
             var exchangeRates = await _mediator.Send(new GetBankByCurrencyQuery()
             {

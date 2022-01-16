@@ -1,5 +1,4 @@
 ﻿using AspNetCoreHero.Results;
-using AutoMapper;
 using ExchangeRate.Application.Interfaces.Repositories;
 using MediatR;
 using System.Collections.Generic;
@@ -27,13 +26,13 @@ namespace ExchangeRate.Application.Features.Banks.Queries.GetAll
         }
         public async Task<Result<List<GetAllBanksResponce>>> Handle(GetAllBanksQuery request, CancellationToken cancellationToken)
         {
-            
+
             var bankList = await _bank.GetAllAsync();
             var banksResponces = bankList.Select(x => new GetAllBanksResponce()
             {
 
-                BankCode = x.BankCode,  
-                BankName = x.BankName,  
+                BankCode = x.BankCode,
+                BankName = x.BankName,
                 Currencies = x.BankCurrencies.Select(x => x.Currency.CurrencyName).ToList()
             }).ToList();
             return await Result<List<GetAllBanksResponce>>.SuccessAsync(banksResponces);

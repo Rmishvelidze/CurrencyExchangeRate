@@ -18,7 +18,7 @@ namespace ExchangeRate.Application.Interfaces.Contexts
 
         DbSet<Bank> Banks { get; set; }
         DbSet<Currency> Currencies { get; set; }
-        DbSet<BankCurrency> BankCurrencies { get; set;}
+        DbSet<BankCurrency> BankCurrencies { get; set; }
         DbSet<ExchangeRateData> ExchangeRateDatas { get; set; }
     }
 }

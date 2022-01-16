@@ -1,10 +1,6 @@
 ﻿using AspNetCoreHero.Results;
 using ExchangeRate.Application.Interfaces.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,7 +22,7 @@ namespace ExchangeRate.Application.Features.BanksByCurrency.Queries.GetById
                 var bankByCurrency = await _bankByCurrencyRepository.GetByIdAsync(request.Id);
                 var getBankByCurrencyByIdResponce = new GetBankByCurrencyByIdResponce()
                 {
-                    BankCode = bankByCurrency.BankId.ToString(),
+                    BankCode = bankByCurrency.Bank.BankCode,
                     BuyRate = bankByCurrency.BuyRate,
                     SellRate = bankByCurrency.SellRate,
                     Date = bankByCurrency.Date

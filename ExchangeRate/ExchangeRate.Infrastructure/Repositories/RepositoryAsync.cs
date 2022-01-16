@@ -1,5 +1,4 @@
 ﻿using ExchangeRate.Application.Interfaces.Repositories;
-using ExchangeRate.Domain.Entities.Catalog;
 using ExchangeRate.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -44,7 +43,7 @@ namespace ExchangeRate.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public virtual async Task<T> GetByIdAsync(int id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }
