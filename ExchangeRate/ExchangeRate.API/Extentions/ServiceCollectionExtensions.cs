@@ -9,6 +9,6 @@ namespace ExchangeRate.API.Extentions
     {
         public static void AddContextInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("BankDatabase"), b => b.MigrationsAssembly("ExchangeRate.Api")));
+                options.UseSqlServer(configuration.GetConnectionString("BankDatabase"), b => b.MigrationsAssembly("ExchangeRate.API")));
     }
 }
