@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ExchangeRate.Application.Features.BanksByCurrency.Queries.GetExcangeRate;
 using ExchangeRate.Domain.Entities.Catalog;
 
 namespace ExchangeRate.Application.Mappings
@@ -7,7 +8,7 @@ namespace ExchangeRate.Application.Mappings
     {
         public BankByCurrencyProfile()
         {
-            CreateMap<BankByCurrencyProfile,ExchangeRateData>().ReverseMap();
+            CreateMap<GetBankByCurrencyQuery, ExchangeRateData>().ReverseMap();
         }
     }
 }

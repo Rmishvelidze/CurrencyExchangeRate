@@ -1,8 +1,8 @@
 ﻿using ExchangeRate.Application.DTOs.Banks;
 using ExchangeRate.Application.Interfaces.Repositories;
 using ExchangeRate.Domain.Entities.Catalog;
+using ExchangeRate.Infrastructure.DbContext;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +11,15 @@ using System.Threading.Tasks;
 
 namespace ExchangeRate.Infrastructure.Repositories
 {
-    public class BankByCurrencyRepository : IBankByCurrencyRepository
+    public class BankByCurrencyRepository : RepositoryAsync<ExchangeRateData>,IBankByCurrencyRepository
     {
-        private readonly IRepositoryAsync<ExchangeRateData> _repository;
-
-        public BankByCurrencyRepository(IRepositoryAsync<ExchangeRateData> repository)
+        public BankByCurrencyRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
-            _repository = repository;   
+   
         }
 
-        public IQueryable<ExchangeRateData> ExchangeRateDatas => _repository.Entities;
+        public IQueryable<ExchangeRateData> ExchangeRateDatas => Entities;
+
         public async Task<List<BankByCurrencyDTO>> GetBankByCurrenciesAsync
             (string firstCurrency, string secondCurrency, IEnumerable<string> banks, DateTime stratDate, DateTime endDate)
         {
@@ -32,7 +31,16 @@ namespace ExchangeRate.Infrastructure.Repositories
                 SellRate = e.SellRate
             };
 
-            return await Task.Run(() => new List<BankByCurrencyDTO>());
+            //missing sume validations
+            var exchangeRateDatas = ExchangeRateDatas.Where
+                (x => x.Date >= stratDate && x.Date <= endDate &&
+                banks.Contains(x.Bank.BankName));
+            var collection = exchangeRateDatas.Select(expression).ToListAsync();
+
+
+            return await collection;
+
+
             //var exchangeRateData = _repository.Entities.Where
             //    (x => x.Date >= stratDate && x.Date <= endDate &&
             //    x.BuyCurrency.CurrencyName == firstCurrency && x.SellCurrency.CurrencyName == secondCurrency);

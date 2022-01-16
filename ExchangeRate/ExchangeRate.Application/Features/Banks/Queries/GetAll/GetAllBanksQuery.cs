@@ -20,12 +20,10 @@ namespace ExchangeRate.Application.Features.Banks.Queries.GetAll
     public class GetAllBanksQueryHandler : IRequestHandler<GetAllBanksQuery, Result<List<GetAllBanksResponce>>>
     {
         private readonly IBankRepository _bank;
-        private readonly IMapper _mapper;
 
-        public GetAllBanksQueryHandler(IBankRepository bankRepository, IMapper mapper)
+        public GetAllBanksQueryHandler(IBankRepository bankRepository)
         {
             _bank = bankRepository;
-            _mapper = mapper;
         }
         public async Task<Result<List<GetAllBanksResponce>>> Handle(GetAllBanksQuery request, CancellationToken cancellationToken)
         {
@@ -33,6 +31,7 @@ namespace ExchangeRate.Application.Features.Banks.Queries.GetAll
             var bankList = await _bank.GetAllAsync();
             var banksResponces = bankList.Select(x => new GetAllBanksResponce()
             {
+
                 BankCode = x.BankCode,  
                 BankName = x.BankName,  
                 Currencies = x.BankCurrencies.Select(x => x.Currency.CurrencyName).ToList()

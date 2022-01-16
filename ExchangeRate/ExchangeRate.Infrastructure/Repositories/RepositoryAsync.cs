@@ -18,6 +18,8 @@ namespace ExchangeRate.Infrastructure.Repositories
 
         public IQueryable<T> Entities => _dbContext.Set<T>();
 
+        public IQueryable<T> Entity2 => _dbContext.Set<T>();
+
         public async Task<T> AddAsync(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);
